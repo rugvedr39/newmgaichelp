@@ -1,0 +1,55 @@
+<div class="container">
+    <h2>Give Help</h2>
+    <div *ngIf="transactions.length === 0" class="alert alert-info">
+      No transactions found.
+    </div>
+    <div *ngFor="let transaction of transactions" class="card mb-3" 
+    [ngClass]="{'card': true, 'mb-3': true, 'bg-success': isPaid(transaction.status)}">
+      <div class="card-body">
+        <h5 class="card-title">Level {{ transaction.level }}</h5>
+        <p class="card-text">Amount: {{ transaction.amount }}</p>
+        <p>Username: {{ transaction.receiverInfo.username }}</p>
+        <p>Mobile Number: {{ transaction.receiverInfo.mobileNumber }}</p>
+        <p class="card-text">Status: {{ transaction.status }}</p>
+        <p class="card-text">Date: {{ transaction.date | date:'medium' }}</p>
+        <button type="button" class="btn btn-primary" (click)="openModal(transaction._id,transaction.amount,transaction.receiverInfo.username)" 
+        *ngIf="transaction.status!='pending'&& transaction.status !== 'paid'">
+          Pay
+        </button>
+      </div>
+    </div>
+  
+    <!-- Pay Modal for each transaction -->
+    <div *ngFor="let transaction of transactions">
+      <div *ngIf="currentTransactionId === transaction._id" class="modal fade show" id="payModal" tabindex="-1" role="dialog"
+           aria-labelledby="payModalLabel" aria-hidden="true" style="display: block; background: rgba(0, 0, 0, 0.5);">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="payModalLabel">Pay Transaction</h5>
+              <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5>Receiver Information</h5>
+              <p>Username: {{ transaction.receiverInfo.username }}</p>
+              <p>Email: {{ transaction.receiverInfo.email }}</p>
+              <p>Mobile Number: {{ transaction.receiverInfo.mobileNumber }}</p>
+              <p>Bank Account Number: {{ transaction.receiverInfo.bankDetails.accountNumber }}</p>
+              <p>IFSC Code: {{ transaction.receiverInfo.bankDetails.ifscCode }}</p>
+              <p>UPI Number: {{ transaction.receiverInfo.upiNumber }}</p>
+              <div class="form-group">
+                <label for="utrNumber">UTR Number</label>
+                <input type="text" class="form-control" id="utrNumber" [(ngModel)]="utrNumber">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="button" class="btn btn-primary" (click)="submitUtrNumber()">Pay Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  

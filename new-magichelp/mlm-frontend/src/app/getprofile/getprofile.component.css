@@ -1,0 +1,11 @@
+.profile-info {
+    display: grid;
+    gap: 20px;
+  }
+  
+  @media (max-width: 767px) {
+    .profile-info .info-item {
+      margin-bottom: 15px;
+    }
+  }
+  

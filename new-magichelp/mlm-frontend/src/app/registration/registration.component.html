@@ -1,0 +1,42 @@
+<div class="container">
+  <h2 class="text-center mb-4 mt-5">Register</h2>
+  <div class="card shadow">
+    <div class="card-body">
+      <form (ngSubmit)="registerUser()" #registrationForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" [(ngModel)]="formData.email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="formData.password" required>
+        </div>
+        <div class="form-group">
+          <label for="mobileNumber">Mobile Number</label>
+          <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" [(ngModel)]="formData.mobileNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="sponsorUsername">Sponsor Username</label>
+          <input type="text" class="form-control" id="sponsorUsername" name="sponsorUsername" [(ngModel)]="formData.sponsorUsername">
+        </div>
+        <div class="form-group">
+          <label for="ePinId">E-pin ID</label>
+          <input type="text" class="form-control" id="ePinId" name="ePinId" [(ngModel)]="formData.ePinId" required>
+        </div>
+        <div class="form-group">
+          <label for="upiNumber">UPI Number</label>
+          <input type="text" class="form-control" id="upiNumber" name="upiNumber" [(ngModel)]="formData.upiNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="accountNumber">Account Number</label>
+          <input type="text" class="form-control" id="accountNumber" name="accountNumber" [(ngModel)]="formData.bankDetails.accountNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="ifscCode">IFSC Code</label>
+          <input type="text" class="form-control" id="ifscCode" name="ifscCode" [(ngModel)]="formData.bankDetails.ifscCode" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block form-control mt-3" [disabled]="registrationForm.invalid">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

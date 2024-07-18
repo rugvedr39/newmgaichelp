@@ -1,0 +1,49 @@
+<!-- level-data.component.html -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Level Data</h2>
+  
+    <div *ngIf="levelData" class="card mb-4">
+      <div class="card-header">
+        <h5 class="card-title">Level {{ levelData.level }}</h5>
+      </div>
+      <div class="card-body">
+        <div *ngIf="!levelDetails; else details">
+          <p class="text-center">Loading level details...</p>
+        </div>
+        <ng-template #details>
+          <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>Transaction ID</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Payer Username</th>
+                <th>Payer Email</th>
+                <th>Payer Mobile</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of levelDetails">
+                <td>{{ detail.utrNumber }}</td>
+                <td>{{ detail.amount | currency: 'INR' }}</td>
+                <td>{{ detail.status }}</td>
+                <td>{{ detail.date | date: 'short' }}</td>
+                <td>{{ detail.PayerInfo.username }}</td>
+                <td>{{ detail.PayerInfo.email }}</td>
+                <td>{{ detail.PayerInfo.mobileNumber }}</td>
+                <td>
+                    <button *ngIf="detail.status === 'pending'" class="btn btn-success" (click)="confirmPayment(detail._id)">Confirm Payment</button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+    </div>
+    <div *ngIf="!levelData">
+      <p class="text-center">No level data available.</p>
+    </div>
+  </div>
+  

@@ -1,0 +1,37 @@
+<div class="matrix-summary">
+    <h2>Recive Help Summary</h2>
+    <div class="level-cards">
+      <div *ngFor="let level of levels" class="level-card" [ngClass]="level.levelStatus.toLowerCase()">
+        <div class="card-header" (click)="selectLevel(level)">
+          <h3>Level {{ level.level }}</h3>
+          <span class="status" [style.color]="getStatusColor(level.levelStatus)">
+            {{ level.levelStatus }}
+            <i class="fas" [ngClass]="level.levelStatus.toLowerCase() === 'locked' ? 'fa-lock' : 'fa-lock-open'"></i>
+          </span>
+        </div>
+        <div class="card-content">
+          <div class="stat">
+            <span>Total People:</span> {{ level.totalPeople }}
+          </div>
+          <div class="stat">
+            <span>Paid People:</span> {{ level.paidPeople }}
+          </div>
+          <div class="stat">
+            <span>Open People:</span> {{ level.openPeople }}
+          </div>
+        </div>
+        <div class="progress-bar" *ngIf="level.totalPeople > 0">
+          <div class="progress" [style.width]="getProgressWidth(level)"></div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="selectedLevelData" class="selected-level-details">
+      <h3>Selected Level Details</h3>
+      <p>Level: {{ selectedLevelData.level }}</p>
+      <p>Status: {{ selectedLevelData.levelStatus }}</p>
+      <p>Total People: {{ selectedLevelData.totalPeople }}</p>
+      <p>Paid People: {{ selectedLevelData.paidPeople }}</p>
+      <p>Open People: {{ selectedLevelData.openPeople }}</p>
+    </div>
+  </div>
